@@ -1,15 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Aqui nos encontramos en la segunda aplicacion de mi vidita</title>
-</head>
-<body>
-    <h1>Datos en tiempo real</h1>
-    <h2>{{temperatura}}</h2>
-    <h2>{{humedad}}</h2>
-    <h2>{{ph}}</h2>
-    <h2>{{presion}}</h2>
-    <h2>{{maldad}}</h2>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+{# Aquí están todos los valores de sensores #}
+
+<h1>Datos en tiempo real</h1>
+
+<h2>{{temperatura}}</h2>
+{% if temperatura > 20 %}
+<h2 style="color:red;">La temperatura es Muy Alta</h2>
+{% endif %}
+
+<h2>{{humedad}}</h2>
+<h2>{{ph}}</h2>
+<h2>{{presion}}</h2>
+<h2>{{maldad}}</h2>
+
+{% for numero in lista_numeros %}
+  
+  <hr>
+  {% if numero > 3 %}
+
+    <p>{{numero}}</p>
+
+    {% for letra in lista_letras %}
+    <p style="color:gray;">{{letra}}</p>
+    {% endfor %}
+
+  {% endif %}
+
+{% endfor %}
+
+{% endblock %}

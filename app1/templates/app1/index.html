@@ -1,14 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends "base.html" %}
+
+{% load static %}
+{% block contenidos %}
+
     <h1>Bienvenido a nuestra pagina de inicio!</h1>
+
+    <img src="{% static 'app1/img/foto.jpg' %}" alt="foto" width="30%">
+
     <h3>{{temperatura}}</h3>
+
     {% for nombre in nombres %}
     <h4>{{nombre}}</h4>
     {% endfor %}
-</body>
-</html>
+
+    {# si quisiera incorporar otros fragmentos de html hacemos lo siguiente#}
+    {% comment %}
+    {% if condicion %}
+       {% include "app1/widget_del_tiempo.html" %}
+    {% else %}
+        {% include "app1/widget_de_datos.html" %}
+    {% endif %}
+    {% endcomment %}
+
+{% endblock %}

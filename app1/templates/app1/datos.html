@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+<h3>Página de Datos de Flores Iris</h3>
+
+{% for registro in datos_desde_archivo %}
+<hr>
+<p>{{registro}}</p>
+<p>{{registro.sepal_length}}</p>
+<p>{{registro.sepal_width}}</p>
+<p>{{registro.petal_length}}</p>
+<p>{{registro.petal.width}}</p>
+<p>{{registro.species}}</p>
+{% endfor %}
+
+{% endblock %}
