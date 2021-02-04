@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<h1>Pagina Crear Guitarras</h1>
+
+<form action="" method="POST">
+    {% csrf_token %}
+    <table>
+        {{formulario.as_table}}
+    </table>
+</form>
+
+{% endblock %}
