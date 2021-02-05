@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<!-- Section: Guitarras -->
+<div class="container-fluid bg-dark" id="lista-guitarras">
+    <div class="row">
+        <h3>Listado de Guitarras Actuales</h3>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="btn btn-light"><a href="{% url 'formularios:crear_guitarra' %}">Crear Nueva Guitarra</a></p>
+        </div>
+    </div>
+    <div class="row">
+        {% for guitarra in lista_guitarras %}
+        <div class="col-md-6 col-lg-3">
+            <div class="card">
+                <h3 class="card-header">Guitarra N° {{guitarra.identificador}}</h3>
+                <div class="card-body">
+                    <h4 class="card-title">{{guitarra.marca}}</h4>
+                    <p class="card-text">{{guitarra.modelo}}</p>
+                    <p class="card-text">{{guitarra.cuerdas}}</p>
+                    <p class="card-text">{{guitarra.fecha_compra}}</p>
+                    <a href="{% url 'formularios:eliminar_guitarra' identificador=guitarra.identificador %}" class="btn btn-dark">Borrar</a>
+                    <a href="" class="btn btn-dark">Editar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- End Section: Guitarras -->
+
+{% endblock %}

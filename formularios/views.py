@@ -1,9 +1,17 @@
 import json
 import datetime
 
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from .forms import FormularioGuitarra
 from django.conf import settings
+
+
+def context_lista_guitarras():
+    filename= "/formularios/data/guitarras.json"
+    with open(str(settings.BASE_DIR)+filename, 'r') as file:
+        guitarras=json.load(file)
+    context = {'lista_guitarras': guitarras['guitarras']}
+    return context
 
 # Create your views here.
 
@@ -12,6 +20,8 @@ def crear_guitarra(request):
     if request.method == "GET":
         formulario = FormularioGuitarra()
         context = {'formulario': formulario}
+        context.update(context_lista_guitarras())
+        print(context)
         return render(request, 'formularios/crear_guitarra.html', context)
 
     elif request.method == "POST":
@@ -25,18 +35,42 @@ def crear_guitarra(request):
             print("Los datos limpios del formulario son:", datos_formulario)
             filename= "/formularios/data/guitarras.json"
             with open(str(settings.BASE_DIR)+filename, 'r') as file:
-                guitarras=json.load(file)
-                guitarras['guitarras'].append(datos_formulario)
+                data=json.load(file)
+                nuevo_ultimo_identificador = int(data['ultimo_identificador']) + 1
+                data['ultimo_identificador'] = nuevo_ultimo_identificador
+                datos_formulario['identificador'] = nuevo_ultimo_identificador
+                data['guitarras'].append(datos_formulario)
             with open(str(settings.BASE_DIR)+filename, 'w') as file:
-                json.dump(guitarras, file)
-            context = {'lista_guitarras': guitarras['guitarras']}
-            return render(request, 'formularios/crear_guitarra_exitoso.html', context)
+                json.dump(data, file)
+            
+            return redirect('formularios:crear_guitarra')
         else:
             context = {'formulario': formulario_devuelto}
+            context.update(context_lista_guitarras())
             return render(request, 'formularios/crear_guitarra.html', context)
 
 
-def crear_guitarra_exitoso(request):
-    guitarras = []
-    context = {'guitarras': guitarras}
-    return render(request, 'formularios/crear_guitarra_exitoso.html', context)
+def lista_guitarras(request):
+    context = context_lista_guitarras()
+    return render(request, 'formularios/lista_guitarras.html', context)
+
+
+def eliminar_guitarra(request, identificador):
+
+    if request.method == "GET":
+        context = {'identificador': identificador}
+        return render(request, "formularios/eliminar_guitarra.html", context)
+
+    if request.method == "POST":
+        filename= "/formularios/data/guitarras.json"
+        with open(str(settings.BASE_DIR)+filename, 'r') as file:
+            data=json.load(file)
+        for guitarra in data['guitarras']:
+            if int(guitarra['identificador'])==int(identificador):
+                data['guitarras'].remove(guitarra)
+                break
+        with open(str(settings.BASE_DIR)+filename, 'w') as file:
+            json.dump(data, file)
+        
+        return redirect('formularios:lista_guitarras')
+

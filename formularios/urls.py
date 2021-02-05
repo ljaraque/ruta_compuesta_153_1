@@ -5,9 +5,6 @@ app_name = "formularios"
 
 urlpatterns = [
     path('crear_guitarra', views.crear_guitarra, name='crear_guitarra'),
-    path(
-        'crear_guitarra_exitoso', 
-        views.crear_guitarra_exitoso, 
-        name='crear_guitarra_exitoso'
-        )
+    path('lista_guitarras', views.lista_guitarras, name='lista_guitarras'),
+    path('<identificador>/borrar_guitarra', views.eliminar_guitarra, name='eliminar_guitarra'),
 ]

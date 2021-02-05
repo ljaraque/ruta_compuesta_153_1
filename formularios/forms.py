@@ -24,8 +24,8 @@ class FormularioGuitarra(forms.Form):
                 validators = [ 
                         validators.MinLengthValidator( 3, 
 						    "El modelo no puede ser de menos de 3 letras"),
-                        validators.MaxLengthValidator( 10, 
-						    "La modelo no puede ser de más de 10 letras") ])
+                        validators.MaxLengthValidator( 30, 
+						    "El modelo no puede ser de más de 30 letras") ])
     cuerdas = forms.IntegerField(validators = [ 
                         validators.MinValueValidator( 6, 
 						    "No pueden ser menos de 6 cuerdas"),

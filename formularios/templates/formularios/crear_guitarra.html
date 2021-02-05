@@ -9,7 +9,30 @@
     <table>
         {{formulario.as_table}}
     </table>
+    <input type="hidden" name="elemento" value="guitarra">
     <input type="submit" value="Crear">
 </form>
-
+<hr>
+    <!-- Section: Competencias -->
+    <div class="container-fluid bg-dark" id="lista-guitarras">
+        <div class="row">
+            <h3>Listado de Guitarras Actuales</h3>
+        </div>
+        <div class="row">
+            {% for guitarra in lista_guitarras %}
+            <div class="col-md-6 col-lg-3">
+                <div class="card">
+                    <h3 class="card-header">Guitarra N° {{guitarra.identificador}}</h3>
+                    <div class="card-body">
+                        <h4 class="card-title">{{guitarra.marca}}</h4>
+                        <p class="card-text">{{guitarra.modelo}}</p>
+                        <p class="card-text">{{guitarra.cuerdas}}</p>
+                        <p class="card-text">{{guitarra.fecha_compra}}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- End Section: Competencias -->
 {% endblock %}
