@@ -9,5 +9,6 @@ urlpatterns = [
         'crear_guitarra_exitoso', 
         views.crear_guitarra_exitoso, 
         name='crear_guitarra_exitoso'
-        )
+        ),
+    path('graficos/', views.grafico, name='graficos')
 ]
