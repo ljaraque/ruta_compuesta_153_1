@@ -50,6 +50,7 @@ def crear_guitarra(request):
             return render(request, 'formularios/crear_guitarra.html', context)
 
 
+
 def lista_guitarras(request):
     context = context_lista_guitarras()
     return render(request, 'formularios/lista_guitarras.html', context)
@@ -73,4 +74,21 @@ def eliminar_guitarra(request, identificador):
             json.dump(data, file)
         
         return redirect('formularios:lista_guitarras')
+
+
+def grafico(request):
+    lista_cuerdas = []
+    lista_modelo = []
+    filename= "/formularios/data/guitarras.json"
+    with open(str(settings.BASE_DIR)+filename, 'r') as file:
+        lista_guitarras = json.load(file) 
+        for elemento in lista_guitarras.get('guitarras')[-5:]:
+            cuerdas = elemento.get('cuerdas')
+            modelo = elemento.get('modelo')
+            lista_cuerdas.append(cuerdas)
+            lista_modelo.append(modelo)
+    print(lista_cuerdas)
+    print(lista_modelo)
+    context = {'cuerdas':lista_cuerdas, 'modelos':lista_modelo}
+    return render(request, 'formularios/graficos.html', context)
 
