@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+        {% for guitarra in guitarras %}
+
+           <h3>  {{guitarra.marca}} | {{guitarra.modelo}} | {{guitarra.cuerdas}}
+                | {{guitarra.fecha_compra}}</h3> 
+            
+
+        {% endfor %}
+<hr>
+        {% for guitarra in guitarras_values %}
+
+          <h3>  {{guitarra.marca}} | {{guitarra.modelo}} | {{guitarra.cuerdas}}
+                | {{guitarra.fecha_compra}}</h3> 
+
+        {% endfor %}
+
+
+{% endblock %}

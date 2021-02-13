@@ -4,6 +4,7 @@ import datetime
 from django.shortcuts import render, redirect
 from .forms import FormularioGuitarra
 from django.conf import settings
+from .models import Guitarra
 
 
 def context_lista_guitarras():
@@ -91,4 +92,11 @@ def grafico(request):
     print(lista_modelo)
     context = {'cuerdas':lista_cuerdas, 'modelos':lista_modelo}
     return render(request, 'formularios/graficos.html', context)
+
+
+def prueba_models(request):
+    context = {'guitarras':Guitarra.objects.all(),
+               'guitarras_values': Guitarra.objects.values()}
+    print(context)
+    return render(request, 'formularios/prueba_models.html', context)
 
