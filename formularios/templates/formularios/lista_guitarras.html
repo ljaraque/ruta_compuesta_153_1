@@ -23,7 +23,7 @@
                     <p class="card-text">{{guitarra.cuerdas}}</p>
                     <p class="card-text">{{guitarra.fecha_compra}}</p>
                     <a href="{% url 'formularios:eliminar_guitarra' identificador=guitarra.identificador %}" class="btn btn-dark">Borrar</a>
-                    <a href="" class="btn btn-dark">Editar</a>
+                    <a href="{% url 'formularios:editar_guitarra' identificador=guitarra.identificador %}" class="btn btn-dark">Editar</a>
                 </div>
             </div>
         </div>
