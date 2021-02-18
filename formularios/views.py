@@ -4,7 +4,7 @@ import datetime
 from django.shortcuts import render, redirect
 from .forms import FormularioGuitarra
 from django.conf import settings
-from .models import Guitarra
+from .models import Guitarra, Musico
 
 
 def context_lista_guitarras():
@@ -125,17 +125,17 @@ def eliminar_guitarra(request, identificador):
         return redirect('formularios:lista_guitarras')
 
 
+
 # C de CRUD con Base de Datos
-'''
-# EN DESARROLLO
+
 def crear_guitarra_db(request):
 
     if request.method == "GET":
         formulario = FormularioGuitarra()
-        context = {'formulario': formulario}
-        context.update(context_lista_guitarras())
-        print(context)
-        return render(request, 'formularios/crear_guitarra.html', context)
+        guitarras = Guitarra.objects.all()
+        context = { 'formulario': formulario, 
+                    'lista_guitarras': guitarras}
+        return render(request, 'formularios/crear_guitarra_db.html', context)
 
     elif request.method == "POST":
         print("El POST contiene:", request.POST)
@@ -146,31 +146,65 @@ def crear_guitarra_db(request):
             datos_formulario = formulario_devuelto.cleaned_data
             datos_formulario['fecha_compra']=datos_formulario['fecha_compra'].strftime("%Y-%m-%d")
             print("Los datos limpios del formulario son:", datos_formulario)
-            filename= "/formularios/data/guitarras.json"
-            with open(str(settings.BASE_DIR)+filename, 'r') as file:
-                data=json.load(file)
-                nuevo_ultimo_identificador = int(data['ultimo_identificador']) + 1
-                data['ultimo_identificador'] = nuevo_ultimo_identificador
-                datos_formulario['identificador'] = nuevo_ultimo_identificador
-                data['guitarras'].append(datos_formulario)
-            with open(str(settings.BASE_DIR)+filename, 'w') as file:
-                json.dump(data, file)
-            
-            return redirect('formularios:crear_guitarra')
+            Guitarra.objects.create(
+                            modelo=datos_formulario['modelo'],
+                            marca=datos_formulario['marca'],
+                            cuerdas=datos_formulario['cuerdas'],
+                            fecha_compra=datos_formulario['fecha_compra'],
+                            madera="estandar",
+                            musico=Musico.objects.all()[0]
+                            )
+            return redirect('formularios:crear_guitarra_db')
         else:
             context = {'formulario': formulario_devuelto}
             context.update(context_lista_guitarras())
-            return render(request, 'formularios/crear_guitarra.html', context)
-'''
+            return render(request, 'formularios/crear_guitarra_db.html', context)
 
 
 # R de CRUD con Base de Datos
+def lista_guitarras_db(request):
+    guitarras = Guitarra.objects.all().order_by("id")
+    context = { 'lista_guitarras': guitarras}
+    return render(request, 'formularios/lista_guitarras_db.html', context)
+
 
 # U de CRUD con Base de Datos
+def editar_guitarra_db(request, identificador):
+
+    if request.method == "GET":
+        guitarra = Guitarra.objects.filter(id=identificador).values()[0]
+        formulario = FormularioGuitarra(initial=guitarra)
+        context = {'formulario': formulario, 'identificador': identificador}
+        return render(request, 'formularios/editar_guitarra_db.html', context)
+
+    elif request.method == "POST":
+        print("El POST contiene:", request.POST)
+        formulario_devuelto = FormularioGuitarra(request.POST)
+        if formulario_devuelto.is_valid() == True:
+            datos_formulario = formulario_devuelto.cleaned_data
+            datos_formulario['fecha_compra']=datos_formulario['fecha_compra'].strftime("%Y-%m-%d")
+            guitarra = Guitarra.objects.filter(id=identificador).update(
+                            modelo=datos_formulario['modelo'],
+                            marca=datos_formulario['marca'],
+                            cuerdas=datos_formulario['cuerdas'],
+                            fecha_compra=datos_formulario['fecha_compra']
+                            )
+            return redirect('formularios:lista_guitarras_db')
+        else:
+            context = {'formulario': formulario_devuelto}
+            return render(request, 'formularios/editar_guitarra_db.html', context)
+
 
 # D de CRUD con Base de Datos
+def eliminar_guitarra_db(request, identificador):
 
+    if request.method == "GET":
+        context = {'identificador': identificador}
+        return render(request, "formularios/eliminar_guitarra_db.html", context)
 
+    if request.method == "POST":
+        Guitarra.objects.filter(id=identificador).delete()
+        return redirect('formularios:lista_guitarras_db')
 
 
 

@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<h1>Editando Guitarra ID: {{identificador}}</h1>
+
+<form action="" method="POST" novalidate>
+    {% csrf_token %}
+    <table>
+        {{formulario.as_table}}
+    </table>
+    <input type="submit" value="Editar">
+    <a href="{% url 'formularios:lista_guitarras_db' %}"><input type="button" value="Cancelar"></a>
+</form>
+
+{% endblock %}

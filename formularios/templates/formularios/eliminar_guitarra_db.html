@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<form action="{% url 'formularios:eliminar_guitarra_db' identificador=identificador %}" method="POST">
+    {% csrf_token %}
+    Está seguro de eliminar en la DB la guitarra con Id = {{identificador}}?
+    <input type="submit" value="Sí">
+</form>
+
+
+{% endblock %}

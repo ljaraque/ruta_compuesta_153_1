@@ -78,16 +78,37 @@
                     role="button"
                     aria-haspopup="true"
                     aria-expanded="false">
-                        Guitarras <span class="caret"></span>
+                        Guitarras Json <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
                     <a class="dropdown-item scroll-trigger"
                       href="{% url 'formularios:lista_guitarras' %}">
-                        Lista Guitarras
+                        Lista Guitarras Json
                     </a>
                     <a class="dropdown-item scroll-trigger"
                     href="{% url 'formularios:crear_guitarra' %}">
-                        Crear Guitarra
+                        Crear Guitarra Json
+                    </a>
+                </div>
+              </li>
+              <li class="nav-item dropdown">
+                <a
+                    href="#"
+                    class="nav-link dropdown-toggle"
+                    data-toggle="dropdown"
+                    role="button"
+                    aria-haspopup="true"
+                    aria-expanded="false">
+                        Guitarras DB <span class="caret"></span>
+                </a>
+                <div class="dropdown-menu dropdown-menu-right">
+                    <a class="dropdown-item scroll-trigger"
+                      href="{% url 'formularios:lista_guitarras_db' %}">
+                        Lista Guitarras DB
+                    </a>
+                    <a class="dropdown-item scroll-trigger"
+                    href="{% url 'formularios:crear_guitarra_db' %}">
+                        Crear Guitarra DB
                     </a>
                 </div>
               </li>

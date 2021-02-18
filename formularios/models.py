@@ -8,8 +8,8 @@ class Musico(models.Model):
     pais = models.CharField(max_length=50, default="Chile")
 
 class Guitarra(models.Model):
-    marca = models.CharField(max_length=50)
-    modelo = models.CharField(max_length=50)
+    marca = models.CharField(max_length=80)
+    modelo = models.CharField(max_length=80)
     cuerdas = models.IntegerField()
     madera = models.CharField(max_length=50, default="No informada")
     fecha_compra = models.DateField()
