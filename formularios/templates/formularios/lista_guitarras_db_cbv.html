@@ -13,7 +13,7 @@
         </div>
     </div>
     <div class="row">
-        {% for guitarra in guitarracbv_list %}
+        {% for guitarra in guitarras %}
         <div class="col-md-6 col-lg-3">
             <div class="card">
                 <h3 class="card-header">Guitarra N° {{guitarra.id}}</h3>
@@ -21,9 +21,11 @@
                     <h4 class="card-title">{{guitarra.marca}}</h4>
                     <p class="card-text">{{guitarra.modelo}}</p>
                     <p class="card-text">{{guitarra.cuerdas}}</p>
+                    <p  class="card-text">{{guitarra.madera}}</p>
                     <p class="card-text">{{guitarra.fecha_compra}}</p>
-                    <a href="" class="btn btn-dark">Borrar</a>
-                    <a href="" class="btn btn-dark">Editar</a>
+                    <a href="{% url 'formularios:editar_guitarra_db_cbv' pk=guitarra.id %}" class="btn btn-dark">Editar</a>
+                    <a href="{% url 'formularios:eliminar_guitarra_db_cbv' pk=guitarra.id %}" class="btn btn-dark">Eliminar</a>
+                
                 </div>
             </div>
         </div>

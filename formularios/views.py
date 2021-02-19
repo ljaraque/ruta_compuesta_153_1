@@ -7,7 +7,7 @@ from django.conf import settings
 from django.urls import reverse_lazy
 from .models import Guitarra, Musico, GuitarraCBV
 from django.views.generic import ListView
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView ,UpdateView, DeleteView
 
 def context_lista_guitarras():
     filename= "/formularios/data/guitarras.json"
@@ -222,13 +222,26 @@ class CrearGuitarra(CreateView):
 # R de CRUD
 class ListaGuitarras(ListView):
     model = GuitarraCBV
+    context_object_name='guitarras'
     template_name = 'formularios/lista_guitarras_db_cbv.html'
 
 
 # U de CRUD
+class EditarGuitarra(UpdateView):
+    model = GuitarraCBV
+    fields = '__all__'
+    template_name = 'formularios/editar_guitarra_db_cbv.html'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
 
 
 # D de CRUD
+class EliminarGuitarra(DeleteView):
+    model = GuitarraCBV
+    fields = '__all__'
+    template_name = 'formularios/eliminar_guitarra_db_cbv.html'
+    context_object_name='guitarra'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
 
 
 
