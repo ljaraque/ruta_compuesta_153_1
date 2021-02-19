@@ -4,8 +4,10 @@ import datetime
 from django.shortcuts import render, redirect
 from .forms import FormularioGuitarra
 from django.conf import settings
-from .models import Guitarra, Musico
-
+from django.urls import reverse_lazy
+from .models import Guitarra, Musico, GuitarraCBV
+from django.views.generic import ListView
+from django.views.generic.edit import CreateView
 
 def context_lista_guitarras():
     filename= "/formularios/data/guitarras.json"
@@ -205,6 +207,31 @@ def eliminar_guitarra_db(request, identificador):
     if request.method == "POST":
         Guitarra.objects.filter(id=identificador).delete()
         return redirect('formularios:lista_guitarras_db')
+
+
+
+# CRUD con Vistas en Base a Clases (CBV)
+
+# C de CRUD
+class CrearGuitarra(CreateView):
+    model = GuitarraCBV
+    fields = '__all__'
+    template_name = 'formularios/crear_guitarra_db_cbv.html'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+# R de CRUD
+class ListaGuitarras(ListView):
+    model = GuitarraCBV
+    template_name = 'formularios/lista_guitarras_db_cbv.html'
+
+
+# U de CRUD
+
+
+# D de CRUD
+
+
+
 
 
 

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<!-- Section: Guitarras -->
+<div class="container-fluid bg-dark" id="lista-guitarras">
+    <div class="row">
+        <h3>Listado de Guitarras Actuales en DB</h3>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <p class="btn btn-light"><a href="{% url 'formularios:crear_guitarra_db_cbv' %}">Crear Nueva Guitarra</a></p>
+        </div>
+    </div>
+    <div class="row">
+        {% for guitarra in guitarracbv_list %}
+        <div class="col-md-6 col-lg-3">
+            <div class="card">
+                <h3 class="card-header">Guitarra N° {{guitarra.id}}</h3>
+                <div class="card-body">
+                    <h4 class="card-title">{{guitarra.marca}}</h4>
+                    <p class="card-text">{{guitarra.modelo}}</p>
+                    <p class="card-text">{{guitarra.cuerdas}}</p>
+                    <p class="card-text">{{guitarra.fecha_compra}}</p>
+                    <a href="" class="btn btn-dark">Borrar</a>
+                    <a href="" class="btn btn-dark">Editar</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- End Section: Guitarras -->
+
+{% endblock %}

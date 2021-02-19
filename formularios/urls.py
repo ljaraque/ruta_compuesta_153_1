@@ -13,6 +13,8 @@ urlpatterns = [
     path('<identificador>/editar_guitarra', views.editar_guitarra, name='editar_guitarra'),
     path('<identificador>/editar_guitarra_db', views.editar_guitarra_db, name='editar_guitarra_db'),
     path('graficos/', views.grafico, name='graficos'),
-    path('prueba_models/', views.prueba_models, name="prueba_models")
+    path('prueba_models/', views.prueba_models, name="prueba_models"),
+    path('lista_guitarras_db_cbv', views.ListaGuitarras.as_view(), name='lista_guitarras_db_cbv'),
+    path('crear_guitarra_db_cbv', views.CrearGuitarra.as_view(), name='crear_guitarra_db_cbv'),
 
 ]

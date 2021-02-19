@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block contenidos %}
+
+<h1>Pagina Crear Guitarras con DB CBV</h1>
+
+<form action="" method="POST" novalidate>
+    {% csrf_token %}
+    <table>
+        {{form.as_table}}
+    </table>
+    <input type="hidden" name="elemento" value="guitarra">
+    <input type="submit" value="Crear">
+</form>
+
+{% endblock %}

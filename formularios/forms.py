@@ -3,6 +3,7 @@ import datetime
 from django import forms
 from django.core import validators
 from django.core.exceptions import ValidationError
+from .models import GuitarraCBV
 
 def validar_fecha(fecha):
     fecha_menor = datetime.datetime.strptime("2020-12-01", "%Y-%m-%d").date()
@@ -32,3 +33,12 @@ class FormularioGuitarra(forms.Form):
                         validators.MaxValueValidator( 12, 
 						    "No pueden ser más de 12 cuerdas") ])
     fecha_compra = forms.DateField(validators = [validar_fecha])
+
+
+# Formulario para vistas basadas en clases (CBV)
+
+class FormularioGuitarraCBV(forms.ModelForm):
+
+    class Meta:
+        model = GuitarraCBV
+        fields='__all__'
