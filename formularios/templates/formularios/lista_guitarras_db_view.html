@@ -5,11 +5,11 @@
 <!-- Section: Guitarras -->
 <div class="container-fluid bg-dark" id="lista-guitarras">
     <div class="row">
-        <h3>Listado de Guitarras Actuales en DB CBV</h3>
+        <h3>Listado de Guitarras Actuales en DB con clase View</h3>
     </div>
     <div class="row">
         <div class="col-12">
-            <p class="btn btn-light"><a href="{% url 'formularios:crear_guitarra_db_cbv' %}">Crear Nueva Guitarra</a></p>
+            <p class="btn btn-light"><a href="{% url 'formularios:crear_guitarra_db_view' %}">Crear Nueva Guitarra</a></p>
         </div>
     </div>
     <div class="row">
@@ -21,11 +21,9 @@
                     <h4 class="card-title">{{guitarra.marca}}</h4>
                     <p class="card-text">{{guitarra.modelo}}</p>
                     <p class="card-text">{{guitarra.cuerdas}}</p>
-                    <p  class="card-text">{{guitarra.madera}}</p>
                     <p class="card-text">{{guitarra.fecha_compra}}</p>
-                    <a href="{% url 'formularios:editar_guitarra_db_cbv' pk=guitarra.id %}" class="btn btn-dark">Editar</a>
-                    <a href="{% url 'formularios:eliminar_guitarra_db_cbv' pk=guitarra.id %}" class="btn btn-dark">Eliminar</a>
-                
+                    <a href="" class="btn btn-dark">Borrar</a>
+                    <a href="" class="btn btn-dark">Editar</a>
                 </div>
             </div>
         </div>

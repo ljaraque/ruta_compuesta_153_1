@@ -35,41 +35,43 @@
         <!-- Navigation Links -->
         <div class="collapse navbar-collapse" id="navigation">
            <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <a
-                  class="nav-link scroll-trigger" 
+            <li class="nav-item dropdown">
+              <a
+                  href="#"
+                  class="nav-link dropdown-toggle"
+                  data-toggle="dropdown"
+                  role="button"
+                  aria-haspopup="true"
+                  aria-expanded="false">
+                      General <span class="caret"></span>
+              </a>
+              <div class="dropdown-menu dropdown-menu-right">
+                  <a class="dropdown-item scroll-trigger"
                   href="{% url 'app1:inicio' %}">
                     Inicio
-                </a>
-              </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
+                  </a>
+                  <a class="dropdown-item scroll-trigger"
                   href="{% url 'app1:empresa' %}">
                     Empresa
-                </a>
-              </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
+                  </a>
+                  <a class="dropdown-item scroll-trigger"
                   href="{% url 'app1:contacto' %}">
                     Contacto
-                </a>
-              </li>
-              <li class="nav-item">
-                <a 
-                  class="nav-link scroll-trigger" 
+                  </a>
+                  <a class="dropdown-item scroll-trigger"
                   href="{% url 'app1:datos' %}"> 
                     Datos Iris
-                </a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link scroll-trigger" 
+                  </a>
+                  <a class="dropdown-item scroll-trigger"
                   href="{% url 'app2:principal' %}">
                     Dashboard Principal
-                </a>
-              </li>
+                  </a>
+                  <a class="dropdown-item scroll-trigger"
+                  href="{% url 'formularios:graficos' %}">
+                    Graficos
+                  </a>
+              </div>
+          
               <li class="nav-item dropdown">
                 <a
                     href="#"
@@ -132,13 +134,6 @@
                         Crear Guitarra DB CBV
                     </a>
                 </div>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="nav-link scroll-trigger" 
-                  href="{% url 'formularios:graficos' %}">
-                    Graficos
-                </a>
               </li>
            </ul>
 

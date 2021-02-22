@@ -8,6 +8,7 @@ from django.urls import reverse_lazy
 from .models import Guitarra, Musico, GuitarraCBV
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView ,UpdateView, DeleteView
+from django.views.generic.base import View
 
 def context_lista_guitarras():
     filename= "/formularios/data/guitarras.json"
@@ -224,6 +225,11 @@ class ListaGuitarras(ListView):
     model = GuitarraCBV
     context_object_name='guitarras'
     template_name = 'formularios/lista_guitarras_db_cbv.html'
+    # si quisieramos personalizar el query que utiliza esta Clase
+    # tendríamos que sobreescribir el método get_queryset
+    def get_queryset(self):
+        #return self.model.objects.filter(id__gt=2)
+        return self.model.objects.all()
 
 
 # U de CRUD
@@ -241,6 +247,75 @@ class EliminarGuitarra(DeleteView):
     template_name = 'formularios/eliminar_guitarra_db_cbv.html'
     context_object_name='guitarra'
     success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
+
+
+# CRUD con Vistas en Base a View
+
+# C de CRUD con clase View
+class CrearGuitarraView(View):
+
+    model = Guitarra
+    form_class =  FormularioGuitarra
+    context_object_name = 'lista_guitarras'
+    template_name = 'formularios/crear_guitarra_db_view.html'
+    success_url = reverse_lazy('formularios:lista_guitarras_db_view')
+
+
+    def get(self, request):
+        formulario = self.form_class
+        queryset = self.model.objects.all()
+        context = { 'formulario': formulario, 
+                    self.context_object_name: queryset}
+        return render(request, 'formularios/crear_guitarra_db_view.html', context)
+    
+    def post(self, request):
+        print("El POST contiene:", request.POST)
+
+        formulario_devuelto = self.form_class(request.POST)
+
+        if formulario_devuelto.is_valid() == True:
+            datos_formulario = formulario_devuelto.cleaned_data
+            datos_formulario['fecha_compra']=datos_formulario['fecha_compra'].strftime("%Y-%m-%d")
+            print("Los datos limpios del formulario son:", datos_formulario)
+            self.model.objects.create(
+                            modelo=datos_formulario['modelo'],
+                            marca=datos_formulario['marca'],
+                            cuerdas=datos_formulario['cuerdas'],
+                            fecha_compra=datos_formulario['fecha_compra'],
+                            madera="estandar",
+                            musico=Musico.objects.all()[0]
+                            )
+            return redirect(self.success_url)
+        else:
+            context = {self.context_object_name: self.model.objects.all(), 
+                        'formulario': formulario_devuelto}
+            return render(request, self.template_name, context)
+
+'''
+# si la clase CrearGuitarraView se trabajara más para 
+# independizar el create() de el caso particular de guitarra
+# entonces podriamos heredar la clase CrearGuitarraView para
+# crear CrearBajoView
+class CrearBajoView(CrearGuitarraView):
+    model = Bajo
+    form_class =  FormularioBajo
+    context_object_name = 'lista_bajos'
+    template_name = 'formularios/crear_bajos_db_view.html'
+    success_url = reverse_lazy('formularios:lista_bajos_db_view')
+'''
+
+# R de CRUD con clase View
+class ListaGuitarrasView(View):
+
+    def get(self, request):
+        context = {'guitarras': Guitarra.objects.all()}
+        return render(request, 'formularios/lista_guitarras_db_view.html', context)
+ 
+
+# U de CRUD con clase View
+
+
+# D de CRUD con clase View
 
 
 
