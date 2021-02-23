@@ -30,5 +30,17 @@ h1, h2, h3, h4, h5, h6, .navbar {
     min-height: 700px;
 }
 
+#mensaje {
+    background-color: white; 
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 12px;
+    border: red 1px solid;
+    border-radius: 5px;
+    width: 40%;
+    color: black;
+    position:absolute;
+    left:50%;
+}
+
 
 

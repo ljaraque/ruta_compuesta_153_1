@@ -3,7 +3,16 @@
 {% block contenidos %}
 
 <!-- Section: Guitarras -->
-<div class="container-fluid bg-dark" id="lista-guitarras">
+<div class="container-fluid bg-dark" id="lista-guitarras">+
+    {% if messages %}
+    <div class="row" id="mensaje">
+        {% for mensaje in messages %}
+        <div class="col-12">
+        <p>{{mensaje}}</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
     <div class="row">
         <h3>Listado de Guitarras Actuales en DB con clase View</h3>
     </div>
@@ -31,5 +40,12 @@
     </div>
 </div>
 <!-- End Section: Guitarras -->
-
+<script>
+    var msg = document.getElementById('mensaje');
+    setTimeout(function(){
+        if (typeof(msg) != 'undefined' && msg != null){
+            msg.remove();
+        }
+    },3000)
+</script>
 {% endblock %}

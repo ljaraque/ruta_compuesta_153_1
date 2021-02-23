@@ -9,6 +9,8 @@ from .models import Guitarra, Musico, GuitarraCBV
 from django.views.generic import ListView
 from django.views.generic.edit import CreateView ,UpdateView, DeleteView
 from django.views.generic.base import View
+# esto es para poder enviar mensajes entre views
+from django.contrib import messages 
 
 def context_lista_guitarras():
     filename= "/formularios/data/guitarras.json"
@@ -277,7 +279,7 @@ class CrearGuitarraView(View):
             datos_formulario = formulario_devuelto.cleaned_data
             datos_formulario['fecha_compra']=datos_formulario['fecha_compra'].strftime("%Y-%m-%d")
             print("Los datos limpios del formulario son:", datos_formulario)
-            self.model.objects.create(
+            guitarra = self.model.objects.create(
                             modelo=datos_formulario['modelo'],
                             marca=datos_formulario['marca'],
                             cuerdas=datos_formulario['cuerdas'],
@@ -285,6 +287,9 @@ class CrearGuitarraView(View):
                             madera="estandar",
                             musico=Musico.objects.all()[0]
                             )
+            messages.success(request, "La nueva guitarra de id= "+str(guitarra.id)+ " fué creada!!!")
+            messages.success(request, "Mensaje 2")
+
             return redirect(self.success_url)
         else:
             context = {self.context_object_name: self.model.objects.all(), 
