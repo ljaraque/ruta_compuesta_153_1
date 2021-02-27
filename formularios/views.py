@@ -11,6 +11,7 @@ from django.views.generic.edit import CreateView ,UpdateView, DeleteView
 from django.views.generic.base import View
 # esto es para poder enviar mensajes entre views
 from django.contrib import messages 
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
 def context_lista_guitarras():
     filename= "/formularios/data/guitarras.json"
@@ -215,15 +216,21 @@ def eliminar_guitarra_db(request, identificador):
 
 # CRUD con Vistas en Base a Clases (CBV)
 
+def verificar_que_es_medico(user):
+    return user.perfil.rol=="medico"
+
 # C de CRUD
-class CrearGuitarra(CreateView):
+class CrearGuitarra(LoginRequiredMixin, UserPassesTestMixin, CreateView):
     model = GuitarraCBV
     fields = '__all__'
     template_name = 'formularios/crear_guitarra_db_cbv.html'
     success_url = reverse_lazy('formularios:lista_guitarras_db_cbv')
 
+    def test_func(self):
+        return verificar_que_es_medico(self.request.user)
+
 # R de CRUD
-class ListaGuitarras(ListView):
+class ListaGuitarras(LoginRequiredMixin, ListView):
     model = GuitarraCBV
     context_object_name='guitarras'
     template_name = 'formularios/lista_guitarras_db_cbv.html'
@@ -346,7 +353,14 @@ def grafico(request):
     return render(request, 'formularios/graficos.html', context)
 
 
+
+from django.shortcuts import reverse, redirect
+from django.utils.http import urlencode
 def prueba_models(request):
+    if not request.user.is_authenticated :
+        loginurl = reverse('login')+'?'+urlencode({'next': request.path})
+        return redirect(loginurl)
+
     context = {'guitarras':Guitarra.objects.all(),
                'guitarras_values': Guitarra.objects.values()}
     print(context)

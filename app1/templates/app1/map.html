@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% load static %}
+{% block contenidos %}
+
+    <h1>Página de Enlaces del Sistema</h1>
+    <p><b>Ruta actual:</b> {{ request.path }}</p>
+    {% if user.is_authenticated %}
+    <p><b>Usuario Id:</b> {{user.id}}<br><b>Username:</b> {{ user.username }}<br><b>Email:</b> {{ user.email }}<br><b>Rol en la aplicación:</b> {{ user.perfil.rol }}</p><br>
+    <p><a href="{% url 'logout' %}?next={% url 'app1:map' %}">
+			{{request.get_host}}{% url 'logout' %}?next={% url 'app1:map' %}</a></p>
+    {% else %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">
+			{{request.get_host}}{% url 'login' %}?next={{ request.path }}</a> Autentica y vuelve a esta página</p>
+    {% endif %}
+    <h3>Nuestras secciones:</h3>
+    <ul>
+        <li><p><a href="{% url 'app1:inicio' %}">{{request.get_host }}{% url 'app1:inicio' %}</a>: 
+                <br>Página de Inicio -- No requiere autenticación</p></li>
+        <li><p><a href="{% url 'formularios:lista_guitarras_db_cbv' %}">{{request.get_host }}{% url 'formularios:lista_guitarras_db_cbv' %}</a>: 
+                <br>Página de Inicio-- Requiere autenticación (LoginRequiredMixin) </p></li>
+        <li><p><a href="{% url 'formularios:crear_guitarra_db_cbv' %}">{{request.get_host }}{% url 'formularios:crear_guitarra_db_cbv' %}</a>: 
+                <br>Página de Empleaos -- Requiere Autenticación (LoginRequiredMixin, UserPassesTestMixin)</p></li>
+        <li><p><a href="{% url 'app1:empresa' %}">{{request.get_host }}{% url 'app1:empresa' %}</a>: 
+                <br>Descripción de Empresa -- Requiere autenticación (@login_required)</p></li>
+        <li><p><a href="{% url 'app1:datos' %}">{{request.get_host }}{% url 'app1:datos' %}</a>:
+                <br>Página de Datos-- No requiere autenticación</p></li>
+        <li><p><a href="{% url 'formularios:prueba_models' %}">{{request.get_host }}{% url 'formularios:prueba_models' %}</a>:
+                <br>Página de Personas-- Requiere autenticación (user.is_authenticated)</p></li>
+    </ul>
+
+{% endblock %}
