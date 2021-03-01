@@ -33,6 +33,16 @@ def context_lista_guitarras():
 # Create your views here.
 
 # C de CRUD con archivo JSON
+
+
+
+def funcion_permiso(user):
+    return user.perfil.rol=="medico"
+
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+@login_required(login_url="/accounts/login/")
+@user_passes_test(funcion_permiso)
 def crear_guitarra(request):
 
     if request.method == "GET":

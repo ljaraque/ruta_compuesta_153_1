@@ -18,15 +18,18 @@
         <li><p><a href="{% url 'app1:inicio' %}">{{request.get_host }}{% url 'app1:inicio' %}</a>: 
                 <br>Página de Inicio -- No requiere autenticación</p></li>
         <li><p><a href="{% url 'formularios:lista_guitarras_db_cbv' %}">{{request.get_host }}{% url 'formularios:lista_guitarras_db_cbv' %}</a>: 
-                <br>Página de Inicio-- Requiere autenticación (LoginRequiredMixin) </p></li>
+                <br>Página Lista Guitarras DB CBV-- Requiere autenticación (LoginRequiredMixin) </p></li>
         <li><p><a href="{% url 'formularios:crear_guitarra_db_cbv' %}">{{request.get_host }}{% url 'formularios:crear_guitarra_db_cbv' %}</a>: 
-                <br>Página de Empleaos -- Requiere Autenticación (LoginRequiredMixin, UserPassesTestMixin)</p></li>
+                <br>Página Crear Guitarras DB CBV -- Requiere Autenticación y Permiso (LoginRequiredMixin, UserPassesTestMixin)</p></li>
         <li><p><a href="{% url 'app1:empresa' %}">{{request.get_host }}{% url 'app1:empresa' %}</a>: 
                 <br>Descripción de Empresa -- Requiere autenticación (@login_required)</p></li>
         <li><p><a href="{% url 'app1:datos' %}">{{request.get_host }}{% url 'app1:datos' %}</a>:
                 <br>Página de Datos-- No requiere autenticación</p></li>
         <li><p><a href="{% url 'formularios:prueba_models' %}">{{request.get_host }}{% url 'formularios:prueba_models' %}</a>:
-                <br>Página de Personas-- Requiere autenticación (user.is_authenticated)</p></li>
-    </ul>
+                <br>Página de Prueba Models-- Requiere autenticación (user.is_authenticated)</p></li>
+        <li><p><a href="{% url 'formularios:crear_guitarra' %}">{{request.get_host }}{% url 'formularios:crear_guitarra' %}</a>: 
+                <br>Página Crear Guitarras -- Requiere Autenticación y permiso (@login_required, )</p></li>
+
+        </ul>
 
 {% endblock %}

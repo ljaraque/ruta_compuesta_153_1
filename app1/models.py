@@ -14,3 +14,6 @@ class Perfil(models.Model):
     codigo_postal = models.CharField(max_length=20)
     archivo_foto = models.CharField(max_length=400, default="sin asignar")
     rol = models.CharField(max_length=50, default="sin asignar")
+
+    def __str__(self):
+        return self.usuario.username + " --> " + self.rol
